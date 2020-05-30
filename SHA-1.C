@@ -10,18 +10,18 @@ int choice;
 
 int ReadFile(char* Text) {
 	char path[100] = { 0x0 };
-	printf("ÇëÊäÈëÎÄ¼şµÄÂ·¾¶:");
+	printf("è¯·è¾“å…¥æ–‡ä»¶çš„è·¯å¾„:");
 	gets_s(path);
 	FILE* fp1 = fopen(path, "r");
 	if (fp1 == NULL) {
-		printf("²»ÄÜ´ò¿ªÎÄ¼ş!");
+		printf("ä¸èƒ½æ‰“å¼€æ–‡ä»¶!");
 		return -1;
 	}
 	fseek(fp1, 0, SEEK_END);
 	int len = ftell(fp1);
 	char* data = (char*)malloc(sizeof(char) * len + 1);
 	if (data == NULL) {
-		printf("·ÖÅäÄÚ´æ¿Õ¼äÊ§°Ü");
+		printf("åˆ†é…å†…å­˜ç©ºé—´å¤±è´¥");
 		return -2;
 	}
 	rewind(fp1);
@@ -30,6 +30,27 @@ int ReadFile(char* Text) {
 	memcpy(Text, data, len);
 	fclose(fp1);
 }
+
+
+//å…³äºWçš„å¦ä¸€ç§å¡«å……æ–¹å¼
+//#define PP(x) (x<<24)|((x<<8)&0xff0000)|((x>>8)&0xff00)|(x>>24) 
+//æ­¤å¤„å°†xé«˜ä½ä½äº’æ¢,ä¾‹å¦‚PP(aabbccdd)=ddccbbaa
+//void processW(char p[64]) {
+//    memset(W, 0, sizeof(int) * 80);
+//   for (int i = 0; i < 16; i++) {
+//        memcpy(&W[i], p + i * 4, 4);
+//        W[i]=PP(W[i]);//ç‰¹åˆ«éœ€è¦æ³¨æ„çš„åœ°æ–¹å°±æ˜¯è¿™é‡Œæ˜¯å¤§ç«¯å­˜å‚¨
+//    }
+//}
+//
+//å¯¹äº0x12345678çš„å­˜å‚¨ï¼š
+//
+//å°ç«¯æ¨¡å¼ï¼šï¼ˆä»ä½å­—èŠ‚åˆ°é«˜å­—èŠ‚ï¼‰
+//ä½ä½åœ°å€ 0x78 0x56 0x34 0x12 é«˜ä½åœ°å€
+//
+//å¤§ç«¯æ¨¡å¼ï¼šï¼ˆä»é«˜å­—èŠ‚åˆ°ä½å­—èŠ‚ï¼‰
+//ä½ä½åœ°å€ 0x12 0x34 0x56 0x78 é«˜ä½åœ°å€
+//
 
 void CreatW()
 {
@@ -60,7 +81,7 @@ void Process() {
 	unsigned long H0 = 0x67452301, H1 = 0xefcdab89, H2 = 0x98badcfe, H3 = 0x10325476, H4 = 0xc3d2e1f0;
 	unsigned long  A, B, C, D, E,temp, temp1,k, f; int i, flag;
 	A = H0; B = H1; C = H2; D = H3; E = H4;
-	for (i = 0; i < 80; i++)//¼ÓÃÜ¹ı³Ì¸´ÖÆÀ´µÄ¡£¡£Õâ±ÈÎÒĞ´µÄºÃ¿´¶àÁË
+	for (i = 0; i < 80; i++)//åŠ å¯†è¿‡ç¨‹å¤åˆ¶æ¥çš„ã€‚ã€‚è¿™æ¯”æˆ‘å†™çš„å¥½çœ‹å¤šäº†
 	{
 		flag = i / 20;
 		switch (flag)
@@ -85,13 +106,13 @@ void Process() {
 	printf("SHA-1 CODE:%lx%lx%lx%lx%lx\n", H0, H1, H2, H3, H4);
 }
 void UI() {
-	printf("=========SHA-1Ëã·¨==========\n");
-	printf("=========1¡¢¼üÅÌÊäÈë=========\n");
-	printf("=========2¡¢ÎÄ¼şÊäÈë=========\n");	
-	printf("=========0¡¢ÍË³ö    =========\n");
+	printf("=========SHA-1ç®—æ³•==========\n");
+	printf("=========1ã€é”®ç›˜è¾“å…¥=========\n");
+	printf("=========2ã€æ–‡ä»¶è¾“å…¥=========\n");	
+	printf("=========0ã€é€€å‡º    =========\n");
 	printf("============================\n");
-	printf("ÊäÈëÄãĞèÒªµÄÑ¡Ôñ£º\n");
-	printf("ÄãµÄÑ¡ÔñÊÇ£º");
+	printf("è¾“å…¥ä½ éœ€è¦çš„é€‰æ‹©ï¼š\n");
+	printf("ä½ çš„é€‰æ‹©æ˜¯ï¼š");
 	scanf_s("%d", &choice);
 	getchar();
 }
@@ -102,7 +123,7 @@ void Sha1() {
 		if (choice != 1 && choice != 2 && choice != 0) { continue; }
 		if (choice == 0) { break; }
 		if (choice == 1) {
-			printf("ÊäÈëĞèÒª¼ÆËãSHA-1µÄ×Ö·û´®£º\n");
+			printf("è¾“å…¥éœ€è¦è®¡ç®—SHA-1çš„å­—ç¬¦ä¸²ï¼š\n");
 			gets_s(plainText);
 		}
 		else if (choice == 2) { ReadFile(plainText); }
