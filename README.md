@@ -5,4 +5,5 @@
 
 看完给颗:star:，:soccer::soccer:了
 （***点击右上角STAR***)
+
 有问题发布[issues](https://github.com/SmoG079/SHA-1/issues)哦!
