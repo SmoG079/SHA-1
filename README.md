@@ -4,3 +4,4 @@
 [点击查看代码](https://github.com/SmoG079/SHA-1/blob/master/SHA-1.C)
 
 看完给颗:star:，:soccer::soccer:了
+(点击STAR)
